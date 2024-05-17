@@ -10,6 +10,7 @@ import {
   Checkbox,
   Group,
   LoadingOverlay,
+  NumberInput,
   Radio,
   Stack,
   TextInput,
@@ -18,7 +19,7 @@ import { createFormContext } from "@mantine/form";
 import { v4 } from "uuid";
 import { api } from "utils/api";
 import { Prism } from "@mantine/prism";
-import {EventApplicationForm} from "../../types/eventForm";
+import { EventApplicationForm } from "../../types/eventForm";
 
 const [FormProvider, useFormContext, useForm] =
   createFormContext<EventApplicationForm>();
@@ -66,7 +67,10 @@ function ContextField() {
           {...form.getInputProps("experience")}
         >
           <Group mt="xs">
-            <Checkbox value="Bossing" label="Mid-Level Bosses(ex. Zulrah, Muspah, Vorkath)" />
+            <Checkbox
+              value="Bossing"
+              label="Mid-Level Bosses(ex. Zulrah, Muspah, Vorkath)"
+            />
             <Checkbox value="TOA" label="Tombs of Amascut 300+ Invocation" />
             <Checkbox value="COX" label="Chambers of Xeric" />
             <Checkbox value="TOB" label="Theatre of Blood" />
@@ -75,24 +79,24 @@ function ContextField() {
           </Group>
         </Checkbox.Group>
         {/*This can be automated by WOM API. If stats are too low, give popup on submission asking them to confirm they will reach stats in time*/}
-        <TextInput
+        <NumberInput
           label="What is your current Combat level (must be 110+ by start of competition) and Slayer level?  Answer with cmb/slayer, i.e.126/99"
           placeholder=""
           {...form.getInputProps("combatLevel")}
         />
         {/*These values won't change and I don't know why*/}
         <Radio.Group
-            name="hasAlt"
-            label="Do you have an alt?"
-            mt="xs"
-            withAsterisk
-            onChange={(value) => {
-              form.setValues({
-                ...form.values,
-                hasAlt: value,
-              });
-            }}
-            value={form.values.hasAlt}
+          name="hasAlt"
+          label="Do you have an alt?"
+          mt="xs"
+          withAsterisk
+          onChange={(value) => {
+            form.setValues({
+              ...form.values,
+              hasAlt: value,
+            });
+          }}
+          value={form.values.hasAlt}
         >
           <Group>
             <Radio value="No" label="No" />
@@ -103,25 +107,25 @@ function ContextField() {
         </Radio.Group>
         {/*Make this only appear if 'No' is not selected for alts*/}
         {form.values.hasAlt !== "No" && (
-        <TextInput
-          label="Please list the in game name(s) the alt(s) account."
-          placeholder=""
-          {...form.getInputProps("reasonForGoodFitInput")}
-        />
+          <TextInput
+            label="Please list the in game name(s) the alt(s) account."
+            placeholder=""
+            {...form.getInputProps("reasonForGoodFitInput")}
+          />
         )}
         {/*Could be automated by WOM API*/}
         <Radio.Group
-            name="isIron"
-            label="Are you an iron?"
-            mt="xs"
-            withAsterisk
-            onChange={(value) => {
-              form.setValues({
-                ...form.values,
-                isIron: value === "true",
-              });
-            }}
-            value={form.values.isIron ? "true" : "false"}
+          name="isIron"
+          label="Are you an iron?"
+          mt="xs"
+          withAsterisk
+          onChange={(value) => {
+            form.setValues({
+              ...form.values,
+              isIron: value === "true",
+            });
+          }}
+          value={form.values.isIron ? "true" : "false"}
         >
           <Group>
             <Radio value="true" label="Yes" />
@@ -130,7 +134,7 @@ function ContextField() {
         </Radio.Group>
         {/*Only show for irons*/}
         {form.values.isIron && (
-        <Radio.Group
+          <Radio.Group
             name="willSplit"
             label="Will you split as an iron?"
             mt="xs"
@@ -142,38 +146,37 @@ function ContextField() {
               });
             }}
             value={form.values.willSplit ? "true" : "false"}
-        >
-          <Group>
-            <Radio value="true" label="Yes" />
-            <Radio value="false" label="No" />
-          </Group>
-        </Radio.Group>
+          >
+            <Group>
+              <Radio value="true" label="Yes" />
+              <Radio value="false" label="No" />
+            </Group>
+          </Radio.Group>
         )}
-        <TextInput
-            label="How many hours on average per day will you be able to invest in the bingo?"
-            placeholder="Remember that this is a per-day average"
-            type="number"
-            withAsterisk
-            {...form.getInputProps("hoursPerDay")}
+        <NumberInput
+          label="How many hours on average per day will you be able to invest in the bingo?"
+          placeholder="Remember that this is a per-day average"
+          withAsterisk
+          {...form.getInputProps("hoursPerDay")}
         />
         <TextInput
-            label="Are there any details you would like your potential captains to know about your schedule?"
-            placeholder="For example, you will not be able to play one or more days. "
-            withAsterisk
-            {...form.getInputProps("scheduleDetails")}
+          label="Are there any details you would like your potential captains to know about your schedule?"
+          placeholder="For example, you will not be able to play one or more days. "
+          withAsterisk
+          {...form.getInputProps("scheduleDetails")}
         />
         <Radio.Group
-            name="region"
-            label="Region?"
-            mt="xs"
-            withAsterisk
-            onChange={(value) => {
-              form.setValues({
-                ...form.values,
-                region: value,
-              });
-            }}
-            value={form.values.region}
+          name="region"
+          label="Region?"
+          mt="xs"
+          withAsterisk
+          onChange={(value) => {
+            form.setValues({
+              ...form.values,
+              region: value,
+            });
+          }}
+          value={form.values.region}
         >
           <Group>
             <Radio value="NA" label="NA" />
@@ -181,17 +184,16 @@ function ContextField() {
             <Radio value="Other" label="Other" />
           </Group>
         </Radio.Group>
-        <TextInput
-            label="Bank value? (in millions)"
-            placeholder="ex. 2.5b will be 2500"
-            type="number"
-            withAsterisk
-            {...form.getInputProps("bankValue")}
+        <NumberInput
+          label="Bank value? (in millions)"
+          placeholder="ex. 2.5b will be 2500"
+          withAsterisk
+          {...form.getInputProps("bankValue")}
         />
         <Checkbox.Group
-            label="What weapons do you have?"
-            withAsterisk
-            {...form.getInputProps("weapons")}
+          label="What weapons do you have?"
+          withAsterisk
+          {...form.getInputProps("weapons")}
         >
           <Group mt="xs">
             <Checkbox value="Tbow" label="Twisted Bow" />
@@ -203,23 +205,26 @@ function ContextField() {
           </Group>
         </Checkbox.Group>
         <Radio.Group
-            name="teamCaptain"
-            label="Do you hereby accept and have read the rules of the competition and that you will not leave unannounced (real life happens just inform us in advance/when it happens) or attempt to cheat or bend the rules. Do you also accept that if you break the rules of the competition you will be removed from the competition, banned from all further cc events, lose rank if you have one, and possibly removed from the Aventus Clan and discord permanently.
+          name="teamCaptain"
+          label="Do you hereby accept and have read the rules of the competition and that you will not leave unannounced (real life happens just inform us in advance/when it happens) or attempt to cheat or bend the rules. Do you also accept that if you break the rules of the competition you will be removed from the competition, banned from all further cc events, lose rank if you have one, and possibly removed from the Aventus Clan and discord permanently.
 
 If you need to leave, please inform us in 72 hours or sooner after the competition starts. Or even prior if possible. We will fully refund your buyin and replace you with a reserve. "
-            mt="xs"
-            withAsterisk
-            onChange={(value) => {
-              form.setValues({
-                ...form.values,
-                confirmRules: value === "true",
-              });
-            }}
-            value={form.values.confirmRules ? "true" : "false"}
+          mt="xs"
+          withAsterisk
+          onChange={(value) => {
+            form.setValues({
+              ...form.values,
+              confirmRules: value === "true",
+            });
+          }}
+          value={form.values.confirmRules ? "true" : "false"}
         >
           <Group>
             <Radio value="true" label="Yes" />
-            <Radio value="false" label="No and I understand that my application to the event will be removed." />
+            <Radio
+              value="false"
+              label="No and I understand that my application to the event will be removed."
+            />
           </Group>
         </Radio.Group>
       </Stack>
@@ -269,10 +274,10 @@ const EventApplication: NextPage = (props) => {
       combatLevel: 0,
       isIron: false,
       willSplit: true,
-      hoursPerDay: "",
+      hoursPerDay: 0,
       scheduleDetails: "",
       region: "NA",
-      bankValue: "",
+      bankValue: 0,
       weapons: [],
       confirmRules: false,
       status: "Pending Review",
@@ -324,7 +329,7 @@ const EventApplication: NextPage = (props) => {
                     console.log(form.values);
                     //Update DB here
                     insertEventApplication.mutate({
-                      ...form.values
+                      ...form.values,
                     });
                   })}
                 >

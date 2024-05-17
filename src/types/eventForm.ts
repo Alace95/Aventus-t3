@@ -4,15 +4,15 @@ export interface EventApplicationForm {
   discordName: string;
   teamCaptain: boolean;
   experience: string[];
-  combatLevel: string;
+  combatLevel: number;
   hasAlt: string;
   altNames: string;
   isIron: boolean;
   willSplit: boolean;
-  hoursPerDay: string;
+  hoursPerDay: number;
   scheduleDetails: string;
   region: string;
-  bankValue: string;
+  bankValue: number;
   weapons: string[];
   confirmRules: boolean;
   status: string;

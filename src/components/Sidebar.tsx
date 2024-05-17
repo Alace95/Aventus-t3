@@ -99,6 +99,11 @@ export const Sidebar = () => {
       tooltip: "Staff Application Form",
     },
     {
+      icon: IconForms,
+      label: "/eventapplication",
+      tooltip: "Event Application Form",
+    },
+    {
       icon: IconLock,
       label: "/admin",
       tooltip: "Admin Panel",

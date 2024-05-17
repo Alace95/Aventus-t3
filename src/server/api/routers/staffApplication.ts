@@ -67,7 +67,7 @@ export const staffApplicationRouter = createTRPCRouter({
     upsertOneStaffApplication: protectedProcedure
         .input(
             z.object({
-                id: z.string(),
+                oid: z.string(),
                 submittingUserId: z.string(),
                 approvingUserId: z.string().optional(),
                 approvingUserName: z.string().optional(),
@@ -85,11 +85,11 @@ export const staffApplicationRouter = createTRPCRouter({
         .mutation(({ ctx, input }) => {
             return ctx.prisma.staffApplication.upsert({
                 where: {
-                    id: input.id
+                    id: input.oid
                 },
                 create: {
                   submittingUserId: input.submittingUserId,
-                  id: input.id,
+                  id: input.oid,
                   status: input.status,
                   ...input.approvingUserId && { approvingUserId: input.approvingUserId },
                   ...input.approvingUserName && { approvingUserName: input.approvingUserName },
